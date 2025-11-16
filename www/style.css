@@ -11,7 +11,13 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: white;
+            /* A subtle grid pattern for a technical, clean aesthetic */
+            background-color: #ffffff;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.035) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.035) 2px, transparent 2px);
+            background-size: 25px 25px; /* Size of the grid squares */
+            background-attachment: fixed; /* Makes the background static */
             color: var(--secondary-color);
         }
 
@@ -127,6 +133,49 @@
             color: #6c757d;
         }
         
+        /* --- CTA Minimal Section --- */
+        .cta-minimal-section {
+            /* Using secondary color for a consistent dark theme */
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 60px 20px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .cta-minimal-section .container {
+            max-width: 900px;
+            /* The global .container already handles margin: auto and padding */
+        }
+        
+        .cta-minimal-section .cta-warning-headline {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+        
+        /* Overrides for the button within this specific section */
+        .cta-minimal-section .cta-button {
+            background-color: #ff9900; /* High-visibility orange/gold */
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 15px 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-minimal-section .cta-button:hover {
+            background-color: #cc7a00; /* Darker orange on hover */
+        }
+        
+        .cta-minimal-section .cta-subtext {
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-top: 20px;
+        }
+        
         /* Simple responsiveness for mobile */
         @media (max-width: 768px) {
             .hero h1 {
@@ -138,6 +187,17 @@
             .services-grid {
                 flex-direction: column;
             }
+        
+            .cta-minimal-section {
+                padding: 40px 15px;
+            }
+        
+            .cta-minimal-section .cta-warning-headline {
+                font-size: 1.5rem;
+            }
         }
 
 
+
+
+        
