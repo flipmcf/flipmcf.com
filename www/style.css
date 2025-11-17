@@ -44,6 +44,11 @@
             text-decoration: none;
             margin-left: 20px;
         }
+        
+        header .logo-link {
+            color: white;
+            text-decoration: none;
+        }
 
         .hero {
             background: var(--light-bg);
