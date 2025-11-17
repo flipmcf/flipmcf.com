@@ -1,1 +1,148 @@
-<H2> hello, you found something that not many people have found. nice job.</H2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Stick Bug Animation</title>
+    <style>
+        /* --- Animation Keyframes --- */
+        /* This defines the sequence of the dance */
+        @keyframes stickBugDance {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-12deg);
+            }
+            75% {
+                transform: rotate(12deg);
+            }
+        }
+
+        /* Keyframes for the leg joints to simulate weight shifting */
+        @keyframes leftLegs {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(20deg); } /* Bend more */
+            75% { transform: rotate(-15deg); } /* Extend */
+        }
+
+        @keyframes rightLegs {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-15deg); } /* Extend */
+            75% { transform: rotate(20deg); } /* Bend more */
+        }
+
+        /* --- Basic Setup --- */
+        body {
+            /* Add a subtle message at the top */
+            display: block;
+            padding-top: 20px;
+            text-align: center;
+            /*
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #e0e0e0; /* Light gray background */
+            overflow: hidden;
+            */
+        }
+
+        .scene {
+            perspective: 800px;
+            /* We need to use margin auto for centering now */
+            width: 150px;
+            margin: 100px auto;
+        }
+
+        /* --- The Stick Bug --- */
+        /* This is the main container that gets animated */
+        .stick-bug {
+            position: relative;
+            width: 150px;
+            height: 200px;
+            /* This establishes the 3D space for the stick bug's parts */
+            transform-style: preserve-3d;
+            /* The rotation is now applied here */
+            transform: rotateX(60deg);
+            /* Apply the animation here */
+            animation: stickBugDance 1.5s ease-in-out infinite;
+        }
+
+        /* --- Stick Bug Parts --- */
+        .body {
+            position: absolute;
+            background-color: #333; /* Dark color for the sticks */
+            border-radius: 5px;
+            width: 10px;
+            height: 120px;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .leg {
+            position: absolute;
+            left: 50%;
+            transform-origin: top center;
+        }
+
+        .leg-top, .leg-bottom {
+            background-color: #333;
+            border-radius: 5px;
+            position: absolute;
+            transform-origin: top center;
+        }
+
+        .leg-top {
+            width: 8px;
+            height: 60px;
+        }
+
+        .leg-bottom {
+            width: 6px;
+            height: 50px;
+            top: 60px; /* Position at the end of the top segment */
+        }
+
+        /* Positioning and rotating each leg */
+        .leg-1 { top: 20px; transform: rotate(45deg); }
+        .leg-2 { top: 20px; transform: rotate(-45deg); }
+        .leg-3 { top: 50px; transform: rotate(70deg); }
+        .leg-4 { top: 50px; transform: rotate(-70deg); }
+        .leg-5 { top: 80px; transform: rotate(90deg); }
+        .leg-6 { top: 80px; transform: rotate(-90deg); }
+
+        /* Initial bend in the "knee" */
+        .leg-1 .leg-bottom, .leg-3 .leg-bottom, .leg-5 .leg-bottom { transform: rotate(-30deg); }
+        .leg-2 .leg-bottom, .leg-4 .leg-bottom, .leg-6 .leg-bottom { transform: rotate(30deg); }
+
+        /* Apply the joint animations */
+        .leg-1 .leg-top, .leg-3 .leg-top, .leg-5 .leg-top {
+            animation: leftLegs 1.5s ease-in-out infinite;
+        }
+        .leg-2 .leg-top, .leg-4 .leg-top, .leg-6 .leg-top {
+            animation: rightLegs 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <H2> hello, you found something that not many people have found. nice job.</H2>
+
+    <!-- This new scene wrapper creates the 3D perspective -->
+    <div class="scene">
+        <!-- The HTML structure for the stick bug -->
+        <div class="stick-bug">
+            <div class="body"></div>
+            <div class="leg leg-1"><div class="leg-top"><div class="leg-bottom"></div></div></div>
+            <div class="leg leg-2"><div class="leg-top"><div class="leg-bottom"></div></div></div>
+            <div class="leg leg-3"><div class="leg-top"><div class="leg-bottom"></div></div></div>
+            <div class="leg leg-4"><div class="leg-top"><div class="leg-bottom"></div></div></div>
+            <div class="leg leg-5"><div class="leg-top"><div class="leg-bottom"></div></div></div>
+            <div class="leg leg-6"><div class="leg-top"><div class="leg-bottom"></div></div></div>
+        </div>
+    </div>
+
+</body>
+</html>
