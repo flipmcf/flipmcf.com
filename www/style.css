@@ -3,7 +3,7 @@
             --primary-color: #007bff; /* Blue */
             --secondary-color: #343a40; /* Dark Gray */
             --light-bg: #f8f9fa; /* Light Gray */
-            --font-family: Arial, sans-serif;
+            --font-family: 'IBM Plex Mono', sans-serif;
         }
 
         body {
