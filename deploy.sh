@@ -9,5 +9,5 @@ if [ -z "$WEBSITEROOT" ]; then
 fi
 
 #only mention directories that belong on the website. If unsure, don't add it.
-rsync -av $WEBSITEROOT/www flipmcf@flipmcf.com:/data/www
-rsync -av $WEBSITEROOT/images flipmcf@flipmcf.com:/data/images
+rsync -av $WEBSITEROOT/www flipmcf@flipmcf.com:/data/
+rsync -av $WEBSITEROOT/images flipmcf@flipmcf.com:/data/
