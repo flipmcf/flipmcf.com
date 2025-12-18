@@ -17,8 +17,47 @@
         <section class="hero">
             <div class="container">
                 <h1>Stuck in open-source limbo?</h1>
-                <p>We are the experienced professionals you hire when the DIY approach fails</p>
-                <a href="mailto:mcfaddenm@flipmcf.com" class="cta-button">Contact Us Today</a>
+                <p>We are the experienced professionals you hire when the DIY approach fails.</p>
+                <a href="#" id="hero-cta-button" class="cta-button">Contact Us Today</a>
+                <div id="contact-form-container" class="contact-form-container">
+                    <!-- 
+                        This form uses Web3Forms.com for submission. 
+                        1. Go to https://web3forms.com/ and create a new access key.
+                        2. Replace "YOUR_ACCESS_KEY_HERE" with your key.
+                        3. The form will then email submissions to your registered email.
+                    -->
+                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                        <input type="hidden" name="subject" value="New Contact Form Submission from flipmcf.com">
+                        <input type="hidden" name="redirect" value="https://www.flipmcf.com/schedule.html">
+
+                        <div class="form-field-full">
+                             <select name="service_interest" required>
+                                <option value="" disabled selected>Select a service of interest...</option>
+                                <option value="Open Source Rescue">Open Source Rescue</option>
+                                <option value="Platform Modernization">Platform Modernization</option>
+                                <option value="Custom Web Application Development">Custom Web Application Development</option>
+                                <option value="Database Development & Migration">Database Development & Migration</option>
+                                <option value="Web Design & UX/UI">Web Design & UX/UI</option>
+                                <option value="Business Automation">Business Automation</option>
+                                <option value="IT Architecture & Consulting">IT Architecture & Consulting</option>
+                                <option value="Cloud & DevOps">Cloud & DevOps</option>
+                                <option value="General Inquiry">General Inquiry</option>
+                            </select>
+                        </div>
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <input type="text" name="company" placeholder="Company Name (Optional)">
+                        <input type="tel" name="phone" placeholder="Phone Number (Optional)">
+                        <div class="form-field-full">
+                            <textarea name="message" placeholder="How can we help you?" required></textarea>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" id="cancel-button" class="cta-button secondary">Cancel</button>
+                            <button type="submit" class="cta-button">Submit Request</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </section>
 
@@ -108,6 +147,37 @@
 
     <!-- Script to load header and footer -->
     <script src="scripts/main.js"></script>
+
+    <!-- Script for hero contact form -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctaButton = document.getElementById('hero-cta-button');
+            const formContainer = document.getElementById('contact-form-container');
+            const cancelButton = document.getElementById('cancel-button');
+            const form = document.getElementById('contact-form');
+
+            function showForm() {
+                ctaButton.style.display = 'none';
+                formContainer.classList.add('visible');
+            }
+
+            function hideForm() {
+                formContainer.classList.remove('visible');
+                // Wait for animation to finish before hiding button
+                setTimeout(() => {
+                    ctaButton.style.display = 'inline-block';
+                    form.reset(); // Optional: reset form fields on cancel
+                }, 500); // Should match CSS transition duration
+            }
+
+            ctaButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                showForm();
+            });
+
+            cancelButton.addEventListener('click', hideForm);
+        });
+    </script>
 </body>
 
 </html>

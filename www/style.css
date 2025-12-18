@@ -76,12 +76,15 @@
             padding: 12px 30px;
             text-decoration: none;
             border-radius: 5px;
+            border: none;
             font-weight: bold;
             transition: background 0.3s ease;
+            cursor: pointer;
+            font-family: var(--font-family); /* Ensure font consistency on <button> */
         }
 
         .cta-button:hover {
-            background: #0056b3;
+            background: #0056b3; /* Darker blue on hover */
         }
 
         .services-section {
@@ -199,6 +202,80 @@
         
             .cta-minimal-section .cta-warning-headline {
                 font-size: 1.5rem;
+            }
+        }
+
+        /* --- Contact Form Styles --- */
+        .contact-form-container {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.7s ease-in-out, opacity 0.5s ease-in-out, padding 0.7s ease-in-out;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 0 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: left; /* Override hero's text-align: center */
+        }
+
+        .contact-form-container.visible {
+            max-height: 1000px; /* Large enough to not clip content */
+            opacity: 1;
+            padding: 30px;
+        }
+
+        #contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        #contact-form .form-field-full,
+        #contact-form .form-buttons {
+            grid-column: 1 / -1;
+        }
+
+        #contact-form select,
+        #contact-form input,
+        #contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            box-sizing: border-box; /* Important for padding and width */
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        #contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .cta-button.secondary {
+            background: var(--secondary-color);
+        }
+        .cta-button.secondary:hover {
+            background: #5a6268;
+        }
+
+        /* Mobile responsiveness for the form */
+        @media (max-width: 768px) {
+            #contact-form {
+                grid-template-columns: 1fr;
+            }
+            .form-buttons {
+                flex-direction: column-reverse; /* Stack buttons, submit on top */
             }
         }
 
