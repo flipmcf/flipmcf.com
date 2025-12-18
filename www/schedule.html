@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flipmcf.com - Schedule a Consultation</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .calendly-inline-widget {
+            min-width: 320px;
+            height: 700px;
+            border: 1px solid #444;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header></header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+               <h1>Schedule Your Free Consultation</h1>
+               <p>Thank you for your interest. Please select a time for your complimentary 30-minute call below.</p>
+            </div>
+        </section>
+
+        <section class="body">
+            <div class="container">
+                <!-- 
+                    Calendly Inline Widget.
+                    1. Sign up for a free account at Calendly.com
+                    2. Create a 30-minute event type.
+                    3. Replace the URL below with your personal Calendly event link.
+                -->
+                <div class="calendly-inline-widget" data-url="https://calendly.com/YOUR_CALENDLY_LINK/30min"></div>
+                <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                
+                <p style="text-align: center; margin-top: 20px;">
+                    If you have trouble with the scheduler, please email us directly at <a href="mailto:mcfaddenm@flipmcf.com">mcfaddenm@flipmcf.com</a>.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer></footer>
+
+    <!-- Script to load header and footer -->
+    <script src="scripts/main.js"></script>
+
+</body>
+
+</html>
