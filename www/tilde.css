@@ -1,0 +1,59 @@
+/* --- The Tilde CSS Shape --- */
+
+:root {
+    --terminal-bg: #000000;
+    --terminal-green: #39ff14; /* A nice neon terminal green */
+    --logo-size: 60px; /* Adjust overall size here */
+    --logo-width: var(--logo-size);
+    --logo-height: calc(var(--logo-size) / 4);
+    --line-thickness: calc(var(--logo-size) / 15); /* Adjust thickness relative to size */
+}
+
+.css-tilde {
+    /* This container defines the bounding box of the tilde */
+    position: relative;
+    width: var(--logo-width);
+    height: var(--logo-height);
+    /* Optional: aids in centering if used inline */
+    display: inline-block;
+
+    /* fine tune the position */
+    margin-bottom: 3px;
+}
+
+/* Shared styles for the two halves of the wave */
+.css-tilde::before,
+.css-tilde::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%; /* Makes them circles */
+    
+    /* Define the circle size relative to the container width */
+    width: 50%;
+    height: calc(var(--logo-size) / 2);
+    
+    /* THE TRICK: Create a circle with a border, but make 3 sides transparent.
+       This leaves us with one quarter-circle arc. */
+    border: var(--line-thickness) solid var(--terminal-green);
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    
+    
+}
+
+/* The left half (the hump going up) */
+.css-tilde::before {
+    left: 0;
+    /* Rotate the arc to form the top hump */
+    transform: rotate(89deg);
+}
+
+/* The right half (the dip going down) */
+.css-tilde::after {
+    /* Position it to overlap the first circle slightly */
+    left: 40%;
+    top: -161%;
+    /* Rotate the arc the opposite way to form the bottom dip */
+    transform: rotate(-91deg);
+}
