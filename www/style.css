@@ -3,7 +3,8 @@
             --primary-color: #007bff; /* Blue */
             --secondary-color: #343a40; /* Dark Gray */
             --light-bg: #f8f9fa; /* Light Gray */
-            --font-family: 'IBM Plex Mono', sans-serif;
+            --font-family: 'Inter', sans-serif;
+            
             --brand-fg: #0f172a;            /* primary text (OpenCraft) */
             --brand-muted: #6b7280;         /* secondary text (Solutions, LLC) */
             --brand-accent: #0ea5e9;        /* tilde color (accent) */
