@@ -2,8 +2,8 @@
 
 :root {
     --terminal-bg: #000000;
-    --terminal-green: #39ff14; /* A nice neon terminal green */
-    --logo-size: 60px; /* Adjust overall size here */
+    --terminal-green: #39b014; /* A nice neon terminal green */
+    --logo-size: 80px; /* Adjust overall size here */
     --logo-width: var(--logo-size);
     --logo-height: calc(var(--logo-size) / 4);
     --line-thickness: calc(var(--logo-size) / 15); /* Adjust thickness relative to size */
@@ -19,6 +19,8 @@
 
     /* fine tune the position */
     margin-bottom: 3px;
+    transform: rotate(-10deg);
+    top: 4px
 }
 
 /* Shared styles for the two halves of the wave */
@@ -38,15 +40,14 @@
     border-top-color: transparent;
     border-right-color: transparent;
     border-bottom-color: transparent;
-    
-    
 }
 
 /* The left half (the hump going up) */
 .css-tilde::before {
     left: 0;
-    /* Rotate the arc to form the top hump */
+    /* Rotate the arc to form the top hump - leaving a gap */
     transform: rotate(89deg);
+    
 }
 
 /* The right half (the dip going down) */
@@ -54,6 +55,6 @@
     /* Position it to overlap the first circle slightly */
     left: 40%;
     top: -161%;
-    /* Rotate the arc the opposite way to form the bottom dip */
+    /* Rotate the arc the opposite way to form the bottom dip, and gap */
     transform: rotate(-91deg);
 }
