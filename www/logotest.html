@@ -1,0 +1,143 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>OpenCraft Solutions, LLC — Logo (CSS tilde)</title>
+<link rel="stylesheet" href="tilde.css">
+<style>
+  :root{
+    /* Customize these */
+    --bg: #ffffff;            /* page background */
+    --fg: #0f172a;            /* primary text (OpenCraft) */
+    --muted: #6b7280;         /* secondary text (Solutions, LLC) */
+    --accent: #0ea5e9;        /* tilde color (accent) */
+    --brand-font: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+    --size-scale: 1;          /* scale the whole logo */
+  }
+
+  /* dark theme example */
+  [data-theme="dark"]{
+    --bg: #0b1220;
+    --fg: #e6eef8;
+    --muted: #a4b0bf;
+    --accent: #38bdf8;
+  }
+
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--bg);
+    font-family:var(--brand-font);
+  }
+
+  /* Logo container */
+  .logo {
+    display:flex;
+    align-items:center;
+    gap:18px;
+    transform: scale(var(--size-scale));
+  }
+
+  /* Wordmark: OpenCraft */
+  .brand {
+    font-weight:700;
+    font-size:48px;
+    letter-spacing: -0.02em;
+    color:var(--fg);
+    line-height:1;
+    white-space:nowrap;
+  }
+
+  /* Secondary text: Solutions, LLC */
+  .sub {
+    font-weight:600;
+    font-size:14px;
+    color:var(--muted);
+    margin-left:4px;
+    align-self:flex-end;
+    transform: translateY(4px);
+  }
+
+  /* The tilde container (pure CSS tilde made of 3 rounded bars) */
+  .tilde {
+    display:inline-block;
+    width:56px;            /* overall tilde width */
+    height:28px;           /* overall tilde height */
+    position:relative;
+    margin-left:6px;
+    margin-right:6px;
+    flex: 0 0 auto;
+    /* optional smoothing for smaller screens */
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* Each segment is a rounded pill; we tweak transforms to create a wave */
+  .tilde .seg {
+    position:absolute;
+    left:0;
+    top:50%;
+    width:36%;
+    height:6px;
+    background:var(--accent);
+    border-radius:9px;
+    transform-origin:center;
+    /* subtle shadow to lift from background (optional) */
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+  }
+
+  /* left segment */
+  .tilde .seg--a{
+    transform: translate(0%, -70%) rotate(-18deg) scaleX(1);
+    left:0%;
+  }
+  /* middle (main) */
+  .tilde .seg--b{
+    transform: translate(32%, -50%) rotate(0deg) scaleX(1.05);
+    left:32%;
+  }
+  /* right segment */
+  .tilde .seg--c{
+    transform: translate(64%, -50%) rotate(18deg) scaleX(1);
+    left:64%;
+  }
+
+  /* Responsiveness: scale down on small screens */
+  @media (max-width:520px){
+    .brand{font-size:34px;}
+    .tilde{width:40px; height:20px;}
+    .tilde .seg{height:5px;}
+  }
+
+  /* Optional: keyboard-focusable variant (if you want to make the tilde interactive) */
+  .tilde:focus { outline: 3px solid color-mix(in srgb, var(--accent) 30%, transparent); outline-offset:4px; border-radius:6px;}
+</style>
+</head>
+<body>
+
+<!-- Add data-theme="dark" on <html> or <body> to preview the dark mode -->
+<div class="logo" role="img" aria-label="OpenCraft tilde Solutions, LLC — company logo">
+  <div style="display:flex;flex-direction:column;align-items:flex-start">
+    <div style="display:flex;align-items:center">
+      <div class="brand">OpenCraft</div>
+
+      <!-- CSS-built tilde: decorative, aria-hidden -->
+      <span class="css-tilde" aria-hidden="true" title="tilde symbol">
+        <i class="seg seg--a"></i>
+        <i class="seg seg--b"></i>
+        <i class="seg seg--c"></i>
+      </span>
+
+      <!-- Secondary inline text -->
+      <div class="sub">Solutions, LLC</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
