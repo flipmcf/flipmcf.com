@@ -51,7 +51,7 @@
         .sub {
             font-weight:600;
             font-size:20px;
-            color:var(--muted);
+            color:var(--fg);
             margin-left:4px;
             align-self:flex-end;
             transform: translateY(4px);
@@ -84,6 +84,23 @@
         header .logo-link {
             color: white;
             text-decoration: none;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-text-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .logo-line {
+            display: flex;
+            align-items: center;
         }
 
         .hero {
@@ -222,6 +239,33 @@
         
         /* Simple responsiveness for mobile */
         @media (max-width: 768px) {
+            /* Responsive Header */
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            header nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            header nav a {
+                margin-left: 0;
+            }
+
+            /* Smaller logo on mobile */
+            .brand {
+                font-size: 32px;
+            }
+
+            .sub {
+                font-size: 14px;
+                transform: translateY(2px);
+            }
+
             .hero h1 {
                 font-size: 2rem;
             }
