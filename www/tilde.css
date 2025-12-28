@@ -3,17 +3,18 @@
 :root {
     --terminal-bg: #000000;
     --terminal-green: #39b014; /* A nice neon terminal green */
-    --logo-size: 80px; /* Adjust overall size here */
-    --logo-width: var(--logo-size);
-    --logo-height: calc(var(--logo-size) / 4);
-    --line-thickness: calc(var(--logo-size) / 15); /* Adjust thickness relative to size */
+    --tilde-size: 80px; /* Adjust overall size here */
+    --tilde-size-mobile: calc(var(--tilde-size) * .625);
+    --tilde-width: var(--tilde-size);
+    --tilde-height: calc(var(--tilde-size) / 4);
+    --line-thickness: calc(var(--tilde-size) / 15); /* Adjust thickness relative to size */
 }
 
 .css-tilde {
     /* This container defines the bounding box of the tilde */
     position: relative;
-    width: var(--logo-width);
-    height: var(--logo-height);
+    width: var(--tilde-width);
+    height: var(--tilde-height);
     /* Optional: aids in centering if used inline */
     display: inline-block;
 
@@ -21,6 +22,27 @@
     margin-bottom: 3px;
     transform: rotate(-10deg);
     top: 4px
+}
+
+@media (max-width: 768px) {
+
+    .css-tilde {
+            --tilde-size: var(--tilde-size-mobile);
+            width: var(--tilde-size);
+            height: calc(var(--tilde-size) / 4);    
+            top: 4px; /* Adjust vertical position for smaller font */
+            margin-bottom: 3px;
+            }
+    
+    .css-tilde::before{
+              
+    }
+    .css-tilde::after {
+        left: px;
+        margin-top: -1px;
+        margin-left: 2px;
+    }
+            
 }
 
 /* Shared styles for the two halves of the wave */
@@ -32,7 +54,7 @@
     
     /* Define the circle size relative to the container width */
     width: 50%;
-    height: calc(var(--logo-size) / 2);
+    height: calc(var(--tilde-size) / 2);
     
     /* THE TRICK: Create a circle with a border, but make 3 sides transparent.
        This leaves us with one quarter-circle arc. */
