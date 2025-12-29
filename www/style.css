@@ -6,7 +6,7 @@
             --font-family: 'Inter', sans-serif;
             
             --brand-fg: #0f172a;            /* primary text (OpenCraft) */
-            --brand-muted: #6b7280;         /* secondary text (Solutions, LLC) */
+            --brand-muted: #6b7280;         /* secondary text (Solutions) */
             --brand-accent: #0ea5e9;        /* tilde color (accent) */
             --brand-font: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
             --brand-size-scale: 1;          /* scale the whole logo */
@@ -47,15 +47,23 @@
             white-space:nowrap;
         }
 
-        /* Secondary text: Solutions, LLC */
-        .sub {
-            font-weight:600;
-            font-size:20px;
-            color:var(--fg);
-            margin-left:4px;
-            align-self:flex-end;
-            transform: translateY(4px);
+        .solutions {
+            /* This class is a hook for the animated span */
         }
+        .animated {
+            display: inline-block;
+            vertical-align: bottom; /* Aligns the animated text with the preceding text */
+            clip-path: inset(0 100% 0 0);
+            animation: reveal-from-left 1s ease-in-out forwards;
+        }
+
+        @keyframes reveal-from-left {
+            to {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        /* Secondary text: Solutions, LLC */
 
         .container {
             max-width: 1200px;
