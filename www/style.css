@@ -5,7 +5,7 @@
             --light-bg: #f8f9fa; /* Light Gray */
             --font-family: 'Inter', sans-serif;
             
-            --brand-fg: #0f172a;            /* primary text (OpenCraft) */
+            --brand-fg: #ffffff;            /* primary text (OpenCraft) */
             --brand-muted: #6b7280;         /* secondary text (Solutions) */
             --brand-accent: #0ea5e9;        /* tilde color (accent) */
             --brand-font: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
@@ -42,25 +42,13 @@
             font-weight:700;
             font-size:48px;
             letter-spacing: -0.02em;
-            color:var(--fg);
+            color:var(--brand-fg);
             line-height:1;
             white-space:nowrap;
         }
 
         .solutions {
             /* This class is a hook for the animated span */
-        }
-        .animated {
-            display: inline-block;
-            vertical-align: bottom; /* Aligns the animated text with the preceding text */
-            clip-path: inset(0 100% 0 0);
-            animation: reveal-from-left 1s ease-in-out forwards;
-        }
-
-        @keyframes reveal-from-left {
-            to {
-                clip-path: inset(0 0 0 0);
-            }
         }
 
         /* Secondary text: Solutions, LLC */
@@ -266,7 +254,7 @@
 
             /* Smaller logo on mobile */
             .brand {
-                font-size: 32px;
+                font-size: 28px;
             }
 
             .sub {

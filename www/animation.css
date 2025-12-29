@@ -1,0 +1,19 @@
+.animated {
+    display: inline-block;
+    vertical-align: bottom; /* Aligns the animated text with the preceding text */
+    /* The initial state has the inverted shape off-screen to the left, making text visible */
+    clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, -30% 0, 0% 0, -10% 100%, -40% 100%);
+    animation: flair-from-left 1s ease-in-out forwards;
+}
+
+@keyframes flair-from-left {
+    /* The inverted (evenodd) shape moves from left to right, creating a "hole" that sweeps across the text. */
+    from {
+        /* Parallelogram is off-screen to the left */
+        clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, -30% 0, 0% 0, -10% 100%, -40% 100%);
+    }
+    to {
+        /* Parallelogram is off-screen to the right */
+        clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 110% 0, 140% 0, 130% 100%, 100% 100%);
+    }
+}
