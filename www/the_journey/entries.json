@@ -1,0 +1,8 @@
+[
+    {
+        "id": "inception",
+        "title": "The Inception",
+        "date": "January 26, 2025",
+        "body": "<p>Welcome to 'The Journey'. This is a space where I will be documenting thoughts, technical challenges, and the evolution of OpenForge Solutions.</p><p>Today, we are starting simple: a JSON-backed content system that separates data from presentation, allowing us to focus on writing without the immediate overhead of a database.</p> <p> The beautiful thing is that I shamelessly used Gemini to write the basics of this system, because getting something into production fast - even if it's a little flawed, is so much better than spending hours on a perfect solution without delivering.</p>  <p> Most of the content of this website was generated with AI, especially the javascript, because writing javascript does not give me joy<p>"
+    }
+]

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Journey</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../tilde.css">
+    <style>
+        /* Specific styles for journal entries */
+        .journal-body {
+            max-width: 800px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .journal-body p {
+            margin-bottom: 1.5rem;
+        }
+        .journal-nav {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header></header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+               <h1 id="entry-title">Loading...</h1>
+               <p id="entry-date" style="opacity: 0.8; margin-top: 0.5rem;"></p>
+            </div>
+        </section>
+
+        <section class="body">
+            <div class="container">
+                <div id="entry-body" class="journal-body"></div>
+                
+                <div class="journal-nav" style="display: flex; justify-content: space-between; align-items: center;">
+                    <a id="nav-prev" href="#" style="display: none;">&larr; Previous</a>
+                    <a href="../index.html">Home</a>
+                    <a id="nav-next" href="#" style="display: none;">Next &rarr;</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer></footer>
+
+    <!-- Script to load header and footer -->
+    <script src="../scripts/main.js"></script>
+    
+    <!-- Journal Logic -->
+    <script src="journal.js"></script>
+
+</body>
+
+</html>
