@@ -34,21 +34,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 bodyEl.innerHTML = entry.body; // Renders HTML content safely
 
                 // Navigation Logic
-                // Assuming data is sorted Newest (0) -> Oldest (N)
+                // Data is sorted Oldest (0) -> Newest (N)
                 const prevLink = document.getElementById('nav-prev');
                 const nextLink = document.getElementById('nav-next');
 
-                // Previous Post (Older) = index + 1
-                if (entryIndex < data.length - 1) {
-                    const prevEntry = data[entryIndex + 1];
+                // Previous Post (Older) = index - 1
+                if (entryIndex > 0) {
+                    const prevEntry = data[entryIndex - 1];
                     prevLink.href = `entry.html?id=${prevEntry.id}`;
                     prevLink.textContent = `← ${prevEntry.title}`;
                     prevLink.style.display = 'inline';
-                }
+                }entry.html
 
-                // Next Post (Newer) = index - 1
-                if (entryIndex > 0) {
-                    const nextEntry = data[entryIndex - 1];
+                // Next Post (Newer) = index + 1
+                if (entryIndex < data.length - 1) {
+                    const nextEntry = data[entryIndex + 1];
                     nextLink.href = `entry.html?id=${nextEntry.id}`;
                     nextLink.textContent = `${nextEntry.title} →`;
                     nextLink.style.display = 'inline';
