@@ -45,7 +45,7 @@
             
 }
 
-/* Shared styles for the two halves of the wave */
+/* Shared styles for the two halves of the tilde */
 .css-tilde::before,
 .css-tilde::after {
     content: '';
