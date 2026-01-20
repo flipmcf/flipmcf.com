@@ -188,6 +188,12 @@
             });
 
             cancelButton.addEventListener('click', hideForm);
+
+            // Check for URL param to open contact form automatically
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('open') === 'contact') {
+                showForm();
+            }
         });
     </script>
 </body>
