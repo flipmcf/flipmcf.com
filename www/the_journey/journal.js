@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     prevLink.href = `entry.html?id=${prevEntry.id}`;
                     prevLink.textContent = `← ${prevEntry.title}`;
                     prevLink.style.display = 'inline';
-                }entry.html
+                }
 
                 // Next Post (Newer) = index + 1
                 if (entryIndex < data.length - 1) {
