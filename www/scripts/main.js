@@ -18,6 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     // Load header and footer
-    loadComponent("header", "header.html");
-    loadComponent("footer", "footer.html");
+    loadComponent("header", "/components/header.html");
+    loadComponent("footer", "/components/footer.html");
 });

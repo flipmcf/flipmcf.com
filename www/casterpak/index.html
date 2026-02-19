@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CasterPak</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../tilde.css">
+</head>
+
+<body>
+
+    <header></header>
+
+    <main>
+        <section class="hero" id="contact-section">
+            <div class="container">
+                <h1>CasterPak</h1>
+                <p>Stabilizing, Securing, and Scaling Business Critical Software</p>
+                <a href="#" id="hero-cta-button" class="cta-button">Contact Us Today</a>
+                <div id="contact-form-container" class="contact-form-container">
+                
+                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="9c733c02-b5e4-4608-aa6d-0ed5498d8954">
+                        <input type="hidden" name="subject" value="New Contact Form Submission from CasterPak">
+                        <input type="hidden" name="redirect" value="https://www.openforgesolutions.com/schedule.html">
+
+                        <div class="form-field-full">
+                             <select name="service_interest" required>
+                                <option value="" disabled selected>Select a service of interest...</option>
+                                <option value="Custom Web Application Development">Custom Web Application Development</option>
+                                <option value="Web Design & UX/UI">Web Design & UX/UI</option>
+                                <option value="Business Automation">Business Automation</option>
+                                <option value="Open Source Rescue">Open Source Consultation</option>
+                                <option value="Education and Training">Education and Training</option>
+                                <option value="Platform Modernization">Platform Modernization</option>
+                                <option value="Database Development & Migration">Database Development & Migration</option>
+                                <option value="IT Architecture & Consulting">IT Architecture & Consulting</option>
+                                <option value="Cloud & DevOps">Cloud & DevOps</option>
+                                <option value="General Inquiry">General Inquiry</option>
+                            </select>
+                        </div>
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <input type="text" name="company" placeholder="Company Name (Optional)">
+                        <input type="tel" name="phone" placeholder="Phone Number" required>
+                        <div class="form-field-full">
+                            <textarea name="message" placeholder="How can we help you?" required></textarea>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" id="cancel-button" class="cta-button secondary">Cancel</button>
+                            <button type="submit" class="cta-button">Submit Request</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="body, services-section">
+            <div class="container">
+                <!-- Content Placeholder -->
+                <p class="section-description">
+                    <b>CasterPak Services:</b> Description of services goes here.
+                </p>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3>Feature 1</h3>
+                        <p>Description of feature 1.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Feature 2</h3>
+                        <p>Description of feature 2.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Feature 3</h3>
+                        <p>Description of feature 3.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta-minimal" class="cta-minimal-section">
+            <div class="container text-center">
+                <h2 class="cta-warning-headline">
+                    Ready to get started with CasterPak?
+                </h2>
+
+                <a href="#contact-section" id="cta-minimal-button" class="cta-button primary-action">
+                    Contact Us
+                </a>
+            </div>
+        </section>
+
+        <section class="credibility-section">
+            <div class="container">
+                <h3>Proven Reliability and Excellence</h3>
+                <p>14 years experience architecting enterprise solutions for mission-critical operations.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer></footer>
+
+    <!-- Script to load header and footer -->
+    <script src="../scripts/main.js"></script>
+
+    <!-- Script for hero contact form -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctaButton = document.getElementById('hero-cta-button');
+            const formContainer = document.getElementById('contact-form-container');
+            const cancelButton = document.getElementById('cancel-button');
+            const ctaMinimalButton = document.getElementById('cta-minimal-button');
+            const form = document.getElementById('contact-form');
+
+            function showForm() {
+                ctaButton.style.display = 'none';
+                formContainer.classList.add('visible');
+            }
+
+            function hideForm() {
+                formContainer.classList.remove('visible');
+                // Wait for animation to finish before hiding button
+                setTimeout(() => {
+                    ctaButton.style.display = 'inline-block';
+                    form.reset(); // Optional: reset form fields on cancel
+                }, 500); // Should match CSS transition duration
+            }
+
+            ctaButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                showForm();
+            });
+
+            ctaMinimalButton.addEventListener('click', function() {
+                // We don't prevent the default action here. This allows the browser's
+                // native anchor link behavior to scroll the page up as intended.
+                showForm();
+            });
+
+            cancelButton.addEventListener('click', hideForm);
+
+            // Check for URL param to open contact form automatically
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('open') === 'contact') {
+                showForm();
+            }
+        });
+    </script>
+</body>
+</html>
