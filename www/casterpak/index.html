@@ -8,6 +8,47 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../tilde.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js" defer></script>
+    <style>
+        .hero-intro {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            text-align: left;
+            margin: 0 auto 30px;
+            max-width: 900px;
+        }
+
+        .hero-intro p {
+            flex: 1 1 380px;
+            margin: 0;
+            max-width: none;
+        }
+
+        .hero-video {
+            flex: 0 0 320px;
+            width: 320px;
+        }
+
+        .hero-video video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 5px;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .hero-intro {
+                flex-direction: column;
+            }
+
+            .hero-video {
+                width: 100%;
+                flex: 1 1 auto;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -18,13 +59,21 @@
         <section class="hero" id="contact-section">
             <div class="container">
                 <h1>CasterPak: Instant Streaming. Any Device. No Migrations</h1>
-                <p>CasterPak transforms your local video library into a high-performance VOD powerhouse. It automatically generates HLS streams and Adaptive Bitrate (ABR) renditions on the fly, ensuring your viewers get a buttery smooth experience whether they are on a 5G flagship or a spotty rural connection.</p>
+                <div class="hero-intro">
+                    <p>CasterPak transforms your local video library into a high-performance VOD powerhouse. It automatically generates HLS streams and Adaptive Bitrate (ABR) renditions on the fly, ensuring your viewers get a buttery smooth experience whether they are on a 5G flagship or a spotty rural connection.</p>
+                    <div class="hero-video">
+                        <video id="casterpak-demo-player" controls muted playsinline></video>
+                    </div>
+                </div>
                 <p></p>
+                <p><b>The easiest way to get CasterPak for your website's videos is to contact us and let us install, configure, and tune it for exactly your needs.</b></p>
                 <p>CasterPak can be easily installed with Docker: </p>
                 <div style="background: #333; color: #fff; padding: 15px; border-radius: 5px; font-family: 'IBM Plex Mono', monospace; margin: 20px 0; text-align: left;">
                     curl -sSL https://raw.githubusercontent.com/flipmcf/CasterPak/refs/heads/master/install.sh | bash
                 </div>
                 <p> You can also clone the repository at <a href="https://github.com/flipmcf/casterpak">github</a></p>
+
+                
                 
                 <a href="#" id="hero-cta-button" class="cta-button">Contact Us Today</a>
                 <div id="contact-form-container" class="contact-form-container">
@@ -141,6 +190,22 @@
 
     <!-- Script to load header and footer -->
     <script src="../scripts/main.js"></script>
+
+    <!-- Script for hero demo video player -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('casterpak-demo-player');
+            const src = 'https://video.casterpak.com/i/big_buck_bunny_1080p_surround.avi.transcodes/big_buck_bunny_1080p_surround,360p,480p,720p,.avi.csmil/master.m3u8';
+
+            if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = src;
+            } else if (window.Hls && window.Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(src);
+                hls.attachMedia(video);
+            }
+        });
+    </script>
 
     <!-- Script for hero contact form -->
     <script>
