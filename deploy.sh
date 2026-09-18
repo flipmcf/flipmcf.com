@@ -3,7 +3,7 @@
 
 if [ -z "$WEBSITEROOT" ]; then
   echo "Error: WEBSITEROOT environment variable is not set." >&2
-  echo "Set WEBSITEROOT to the full path to the directory containing 'www', 'images' 'scripts' etc"
+  echo "Set WEBSITEROOT to the full local path to the directory containing 'www', 'images' 'scripts' etc"
   echo "example: export WEBSITEROOT=\"/home/flipmcf/projects/flipmcf.com\"  No trailing slash"
   exit 1
 fi

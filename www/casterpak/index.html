@@ -10,10 +10,14 @@
     <link rel="stylesheet" href="../tilde.css">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js" defer></script>
     <style>
+        #video-url, #player-info {
+            font-size: 12px;
+        }
+
         .hero-intro {
-            text-align: left;
+            text-align: center;
             margin: 0 auto 30px;
-            max-width: 900px;
+            max-width: 700px;
         }
 
         .hero-intro p {
@@ -99,11 +103,11 @@
                         <div id="casterpak-hud" class="video-hud">initializing&hellip;</div>
                     </div>
                 </div>
-                <p></p>
+                <p class="video-url"><span id="player-info"></span><br><span id="video-url"></span></p>
                 <p><b>The easiest way to get CasterPak for your website's videos is to contact us and let us install, configure, and tune it for exactly your needs.</b></p>
                 <p>CasterPak can be easily installed with Docker: </p>
                 <div style="background: #333; color: #fff; padding: 15px; border-radius: 5px; font-family: 'IBM Plex Mono', monospace; margin: 20px 0; text-align: left;">
-                    curl -sSL https://raw.githubusercontent.com/flipmcf/CasterPak/refs/heads/master/install.sh | bash
+                    curl -sSL https://raw.githubusercontent.com/flipmcf/CasterPak/refs/heads/master/install | bash
                 </div>
                 <p> You can also clone the repository at <a href="https://github.com/flipmcf/casterpak">github</a></p>
 
@@ -119,7 +123,8 @@
 
                         <div class="form-field-full">
                              <select name="service_interest" required>
-                                <option value="" disabled selected>Select a service of interest...</option>
+                                <option value="" disabled >Select a service of interest...</option>
+                                <option selected value="CasterPak Video Streaming">CasterPak Video Streaming</option>
                                 <option value="Custom Web Application Development">Custom Web Application Development</option>
                                 <option value="Web Design & UX/UI">Web Design & UX/UI</option>
                                 <option value="Business Automation">Business Automation</option>
@@ -184,7 +189,7 @@
                         <h3>The .csmil Endpoint &mdash; Point Your Site Here</h3>
                         <p>The flagship. Feed it a comma-separated list of your already-encoded renditions and it packages them into an HLS stream on the fly, caches the result, and serves it. Packaging is CPU-cheap, so your server does almost nothing per request while your storage does the work.</p>
                         <div style="background: #333; color: #fff; padding: 12px; border-radius: 5px; font-family: 'IBM Plex Mono', monospace; margin: 15px 0; font-size: 0.85rem; word-break: break-all;">
-                            /i/my_video,360p,480p,720p,.mp4.csmil/master.m3u8
+                            /i/my_video_,360p,480p,720p,.mp4.csmil/master.m3u8
                         </div>
                         <p>It uses the same URL grammar Akamai Media Services On Demand used, so if you're migrating off Akamai, your existing player integrations mostly just work &mdash; no rewrite.</p>
                     </div>
@@ -230,7 +235,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             const video = document.getElementById('casterpak-demo-player');
             const hud = document.getElementById('casterpak-hud');
-            const src = 'https://video.casterpak.com/i/big_buck_bunny_1080p_surround.avi.transcodes/big_buck_bunny_1080p_surround,360p,480p,720p,.avi.csmil/master.m3u8';
+            const src = 'https://video.casterpak.com/i/bbb.avi.transcodes/bbb_,360p,480p,720p,1080p,.avi.csmil/master.m3u8';
+            
+            document.getElementById("video-url").textContent=src;
+            
 
             function kbps(bps) { return (bps && isFinite(bps)) ? Math.round(bps / 1000) + ' kbps' : '—'; }
 
@@ -300,7 +308,10 @@
                 hud.innerHTML = lines.join('<br>');
             }
 
+            const playerInfo = document.getElementById('player-info');
+
             if (window.Hls && window.Hls.isSupported()) {
+                playerInfo.textContent = 'Player: hls.js ' + Hls.version;
                 hls = new Hls();
                 hls.loadSource(src);
                 hls.attachMedia(video);
@@ -318,6 +329,7 @@
 
                 setInterval(renderHud, 500);
             } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                playerInfo.textContent = 'Player: native HLS (browser)';
                 video.src = src;
                 setInterval(renderHud, 500);
             }
