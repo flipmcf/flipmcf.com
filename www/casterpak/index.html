@@ -11,42 +11,73 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js" defer></script>
     <style>
         .hero-intro {
-            display: flex;
-            align-items: center;
-            gap: 40px;
             text-align: left;
             margin: 0 auto 30px;
             max-width: 900px;
         }
 
         .hero-intro p {
-            flex: 1 1 380px;
             margin: 0;
-            max-width: none;
         }
 
-        .hero-video {
-            flex: 0 0 320px;
-            width: 320px;
+        .hero-player {
+            margin: 0 auto 30px;
+            max-width: 900px;
         }
 
-        .hero-video video {
+        .hero-player .stage {
+            position: relative;
+            width: 100%;
+        }
+
+        .hero-player video {
             width: 100%;
             aspect-ratio: 16 / 9;
             background: #000;
-            border-radius: 5px;
+            border-radius: 8px;
             display: block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
         }
 
+        .video-hud {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            width: min(240px, 48%);
+            background: rgba(0, 0, 0, .80);
+            color: #0f0;
+            font: 12px/1.45 ui-monospace, Menlo, Consolas, monospace;
+            text-align: left;
+            padding: 10px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            text-shadow: 0 0 2px #000;
+        }
+
+        .video-hud h4 {
+            margin: 9px 0 2px;
+            color: #6cf;
+            font-size: 10px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+
+        .video-hud h4:first-child { margin-top: 0; }
+        .video-hud .measured { color: #ff0; }
+        .video-hud .active { color: #0f0; font-weight: bold; }
+        .video-hud .dim { color: #888; }
+        .video-hud .warn { color: #f80; }
+        .video-hud ul { margin: 0; padding: 0; list-style: none; }
+
         @media (max-width: 768px) {
-            .hero-intro {
-                flex-direction: column;
+            .video-hud {
+                font-size: 10px;
+                padding: 8px 10px;
+                width: min(200px, 52%);
             }
 
-            .hero-video {
-                width: 100%;
-                flex: 1 1 auto;
-            }
+            .video-hud h4 { font-size: 9px; }
         }
     </style>
 </head>
@@ -61,8 +92,11 @@
                 <h1>CasterPak: Instant Streaming. Any Device. No Migrations</h1>
                 <div class="hero-intro">
                     <p>CasterPak transforms your local video library into a high-performance VOD powerhouse. It automatically generates HLS streams and Adaptive Bitrate (ABR) renditions on the fly, ensuring your viewers get a buttery smooth experience whether they are on a 5G flagship or a spotty rural connection.</p>
-                    <div class="hero-video">
+                </div>
+                <div class="hero-player">
+                    <div class="stage">
                         <video id="casterpak-demo-player" controls muted playsinline></video>
+                        <div id="casterpak-hud" class="video-hud">initializing&hellip;</div>
                     </div>
                 </div>
                 <p></p>
@@ -191,18 +225,101 @@
     <!-- Script to load header and footer -->
     <script src="../scripts/main.js"></script>
 
-    <!-- Script for hero demo video player -->
+    <!-- Script for hero demo video player + live ABR HUD -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const video = document.getElementById('casterpak-demo-player');
+            const hud = document.getElementById('casterpak-hud');
             const src = 'https://video.casterpak.com/i/big_buck_bunny_1080p_surround.avi.transcodes/big_buck_bunny_1080p_surround,360p,480p,720p,.avi.csmil/master.m3u8';
 
-            if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = src;
-            } else if (window.Hls && window.Hls.isSupported()) {
-                const hls = new Hls();
+            function kbps(bps) { return (bps && isFinite(bps)) ? Math.round(bps / 1000) + ' kbps' : '—'; }
+
+            let hls = null;
+            let levels = [];
+
+            // Rolling average of the last few measured (completed-download) fragment
+            // bitrates, taken straight from hls.js's own loader stats.
+            const MBPS_HISTORY_LEN = 5;
+            let mbpsHistory = [];
+
+            function recordMbps(bps) {
+                if (!bps || !isFinite(bps)) return;
+                mbpsHistory.push(bps);
+                if (mbpsHistory.length > MBPS_HISTORY_LEN) mbpsHistory.shift();
+            }
+
+            function avgMbps() {
+                if (!mbpsHistory.length) return null;
+                return mbpsHistory.reduce(function(a, b) { return a + b; }, 0) / mbpsHistory.length;
+            }
+
+            function renderHud() {
+                if (!hud) return;
+                const lines = [];
+                const decW = video.videoWidth, decH = video.videoHeight;
+
+                if (!hls) {
+                    lines.push('<h4>Measured (decoder)</h4>');
+                    lines.push('resolution: <span class="measured">' + (decW ? decW + 'x' + decH : '—') + '</span>');
+                    lines.push('<h4 class="warn">native HLS</h4>');
+                    lines.push('<span class="dim">bitrate &amp; variant data need<br>the hls.js engine — open in Chrome.</span>');
+                    hud.innerHTML = lines.join('<br>');
+                    return;
+                }
+
+                const activeIdx = hls.currentLevel >= 0 ? hls.currentLevel : hls.loadLevel;
+                const active = levels[activeIdx];
+                const mbps = avgMbps();
+
+                lines.push('<h4>Measured &mdash; from segments</h4>');
+                lines.push('resolution: <span class="measured">' + (decW ? decW + 'x' + decH : '—') + '</span>');
+                lines.push('bitrate: <span class="measured">' + kbps(mbps) + '</span> <span class="dim">(avg of last '
+                    + mbpsHistory.length + '/' + MBPS_HISTORY_LEN + ')</span>');
+
+                lines.push('<h4>Switched-to &mdash; declared</h4>');
+                if (active) {
+                    lines.push('<span class="active">' + active.width + 'x' + active.height + ' @ ' + kbps(active.bitrate) + '</span>');
+                } else {
+                    lines.push('<span class="dim">resolving…</span>');
+                }
+
+                lines.push('<h4>Available &mdash; master.m3u8</h4>');
+                if (levels.length) {
+                    const sorted = levels.map(function(l, i) { return { level: l, idx: i }; })
+                        .sort(function(a, b) { return b.level.bitrate - a.level.bitrate; });
+                    lines.push('<ul>' + sorted.map(function(entry) {
+                        const on = entry.idx === activeIdx;
+                        return '<li class="' + (on ? 'active' : 'dim') + '">'
+                            + (on ? '▶ ' : '&nbsp;&nbsp;')
+                            + entry.level.width + 'x' + entry.level.height + '  ' + kbps(entry.level.bitrate) + '</li>';
+                    }).join('') + '</ul>');
+                } else {
+                    lines.push('<span class="dim">no variants parsed</span>');
+                }
+
+                hud.innerHTML = lines.join('<br>');
+            }
+
+            if (window.Hls && window.Hls.isSupported()) {
+                hls = new Hls();
                 hls.loadSource(src);
                 hls.attachMedia(video);
+
+                hls.on(Hls.Events.MANIFEST_PARSED, function(event, data) {
+                    levels = data.levels;
+                });
+
+                hls.on(Hls.Events.FRAG_LOADED, function(event, data) {
+                    const stats = data.frag && data.frag.stats;
+                    const bytes = stats && (stats.total || stats.loaded);
+                    const duration = data.frag && data.frag.duration;
+                    if (bytes && duration) recordMbps(bytes * 8 / duration);
+                });
+
+                setInterval(renderHud, 500);
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = src;
+                setInterval(renderHud, 500);
             }
         });
     </script>
